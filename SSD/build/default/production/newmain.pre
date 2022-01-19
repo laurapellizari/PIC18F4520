@@ -1,0 +1,44 @@
+
+# 1 "newmain.c"
+
+
+# 38 "config.h"
+#pragma config MCLRE=ON
+#pragma config OSC=HS
+#pragma config WDT=OFF
+#pragma config LVP=OFF
+#pragma config DEBUG = OFF
+#pragma config WDTPS = 1
+
+# 22 "ssd.h"
+void ssdDigit(char val, char pos);
+void ssdUpdate(void);
+void ssdInit(void);
+
+# 4 "newmain.c"
+void main(void) {
+float tempo;
+unsigned int cont=0;
+(*(volatile __near unsigned char*)0xF94) = 0X00;
+(*(volatile __near unsigned char*)0xF82)= 0X00;
+ssdInit();
+for (;;) {
+cont++;
+ssdDigit(((cont/20) %10), 0);
+ssdDigit(((cont/200)%10), 1);
+ssdDigit(((cont/2000)%10), 2);
+ssdDigit(((cont/12000)%10), 3);
+
+if(cont==2000){
+(*(volatile __near unsigned char*)0xF82) =0XFF;
+
+}
+if(cont==4000){
+(*(volatile __near unsigned char*)0xF82) =0X00;
+
+}
+
+ssdUpdate();
+for (tempo = 0;tempo < 30;tempo++);
+}
+}

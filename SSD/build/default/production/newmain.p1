@@ -1,0 +1,112 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[p mainexit ]
+"24 ssd.h
+[v _ssdInit `(v ~T0 @X0 0 ef ]
+"22
+[v _ssdDigit `(v ~T0 @X0 0 ef2`uc`uc ]
+"23
+[v _ssdUpdate `(v ~T0 @X0 0 ef ]
+"38 config.h
+[p x MCLRE=ON ]
+"39
+[p x OSC=HS ]
+"40
+[p x WDT=OFF ]
+"41
+[p x LVP=OFF ]
+"42
+[p x DEBUG=OFF ]
+"43
+[p x WDTPS=1 ]
+[; ;ssd.h: 22: void ssdDigit(char val, char pos);
+[; ;ssd.h: 23: void ssdUpdate(void);
+[; ;ssd.h: 24: void ssdInit(void);
+[v $root$_main `(v ~T0 @X0 0 e ]
+"4 newmain.c
+[v _main `(v ~T0 @X0 1 ef ]
+{
+[; ;newmain.c: 4: void main(void) {
+[e :U _main ]
+[f ]
+"5
+[v _tempo `f ~T0 @X0 1 a ]
+"6
+[v _cont `ui ~T0 @X0 1 a ]
+[; ;newmain.c: 5: float tempo;
+[; ;newmain.c: 6: unsigned int cont=0;
+[e = _cont -> -> 0 `i `ui ]
+[; ;newmain.c: 7: (*(volatile __near unsigned char*)0xF94) = 0X00;
+"7
+[e = *U -> -> 3988 `i `*VNuc -> -> 0 `i `uc ]
+[; ;newmain.c: 8: (*(volatile __near unsigned char*)0xF82)= 0X00;
+"8
+[e = *U -> -> 3970 `i `*VNuc -> -> 0 `i `uc ]
+[; ;newmain.c: 9: ssdInit();
+"9
+[e ( _ssdInit ..  ]
+[; ;newmain.c: 10: for (;;) {
+"10
+{
+[e :U 2 ]
+{
+[; ;newmain.c: 11: cont++;
+"11
+[e ++ _cont -> -> 1 `i `ui ]
+[; ;newmain.c: 12: ssdDigit(((cont/20) %10), 0);
+"12
+[e ( _ssdDigit (2 , -> % / _cont -> -> 20 `i `ui -> -> 10 `i `ui `uc -> -> 0 `i `uc ]
+[; ;newmain.c: 13: ssdDigit(((cont/200)%10), 1);
+"13
+[e ( _ssdDigit (2 , -> % / _cont -> -> 200 `i `ui -> -> 10 `i `ui `uc -> -> 1 `i `uc ]
+[; ;newmain.c: 14: ssdDigit(((cont/2000)%10), 2);
+"14
+[e ( _ssdDigit (2 , -> % / _cont -> -> 2000 `i `ui -> -> 10 `i `ui `uc -> -> 2 `i `uc ]
+[; ;newmain.c: 15: ssdDigit(((cont/12000)%10), 3);
+"15
+[e ( _ssdDigit (2 , -> % / _cont -> -> 12000 `i `ui -> -> 10 `i `ui `uc -> -> 3 `i `uc ]
+[; ;newmain.c: 17: if(cont==2000){
+"17
+[e $ ! == _cont -> -> 2000 `i `ui 5  ]
+{
+[; ;newmain.c: 18: (*(volatile __near unsigned char*)0xF82) =0XFF;
+"18
+[e = *U -> -> 3970 `i `*VNuc -> -> 255 `i `uc ]
+"20
+}
+[e :U 5 ]
+[; ;newmain.c: 20: }
+[; ;newmain.c: 21: if(cont==4000){
+"21
+[e $ ! == _cont -> -> 4000 `i `ui 6  ]
+{
+[; ;newmain.c: 22: (*(volatile __near unsigned char*)0xF82) =0X00;
+"22
+[e = *U -> -> 3970 `i `*VNuc -> -> 0 `i `uc ]
+"24
+}
+[e :U 6 ]
+[; ;newmain.c: 24: }
+[; ;newmain.c: 26: ssdUpdate();
+"26
+[e ( _ssdUpdate ..  ]
+[; ;newmain.c: 27: for (tempo = 0;tempo < 30;tempo++);
+"27
+{
+[e = _tempo -> -> 0 `i `f ]
+[e $ < _tempo -> -> 30 `i `f 7  ]
+[e $U 8  ]
+[e :U 7 ]
+[e ++ _tempo -> -> 1 `i `f ]
+[e $ < _tempo -> -> 30 `i `f 7  ]
+[e :U 8 ]
+}
+"28
+}
+[; ;newmain.c: 28: }
+[e $U 2  ]
+[e :U 3 ]
+}
+[; ;newmain.c: 29: }
+"29
+[e :UE 1 ]
+}
